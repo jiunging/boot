@@ -23,15 +23,13 @@ public class TestCode01 {
 		BuilderVO vo = BuilderVO.builder().name("홍긷동").age(20).build();
 		System.out.println(vo.toString());
 		
-		SimpleVO vo2 = SimpleVO.builder()
-								.id("abc123")
-								.age(20)
-								.email("sdf")
-								.address("서울시")
-								.build();
-		System.out.println(vo2.toString());
-		
+//		SimpleVO vo2 = SimpleVO.builder()
+//								.id("abc123")
+//								.age(20)
+//								.email("sdf")
+//								.address("서울시")
+//								.build();
+//		System.out.println(vo2.toString());
 		
 	}
-
 }

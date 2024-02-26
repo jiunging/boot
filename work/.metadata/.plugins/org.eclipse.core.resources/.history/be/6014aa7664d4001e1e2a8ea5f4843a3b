@@ -1,6 +1,0 @@
-# 포트
-server.port=8181
-
-# JSP를 뷰로 사용하려면? 리졸버 뷰의 경로지정
-spring.mvc.view.prefix=/WEB-INF/views/
-spring.mvc.view.suffix=.jsp

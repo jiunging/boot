@@ -14,5 +14,4 @@ public class SimpleVO {
 	private int age;
 	private String email;
 	private String address;
-
 }
