@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="함수(section)">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+	<!-- css, js 링크.. -->
+</head>
+<body>
+
+	<header>
+		<h3>여기는 헤더부분...</h3>
+	</header>
+	
+	<section>
+		<th:block th:replace="${section}"> </th:block>
+	</section>
+	
+	<footer>
+		<h3>여기는 풋터부분..</h3>
+	</footer>
+
+
+</body>
+</th:block>
+</html>

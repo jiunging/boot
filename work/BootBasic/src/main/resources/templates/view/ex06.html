@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<!-- ~{ 경로 :: 함수( ~{내 파일 생략 :: css선택자} ) } -->
+	<th:block th:replace="~{./include/layout03 :: 함수( ~{ ::.wrap } ) }">
+
+		<div id="first" class="wrap">
+			<h3>ex06 - 템플릿 모형의 인클루드</h3>
+			생략....
+		</div>
+		
+		<div>
+			이 내용이 나올까요? ㅋㅋ 안 나와요~~
+		</div>
+	
+	</th:block>
+	
+	<script>
+		// 이 화면에서만 사용할 프로그램 코드는 th:block 밖에다가 선언하면 됨
+		var a = 1;
+		console.log(a);
+	
+	</script>
+
+</body>
+</html>

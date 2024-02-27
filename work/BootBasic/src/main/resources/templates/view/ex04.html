@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h3>JS에서 타임리프값 참조하기 th:inline </h3>
+	[[${name}]]
+	[[${vo}]]
+	
+	<script th:inline="javascript">
+	// 자바 Object타입을 JSON으로 받고 싶다면
+		let a = '[[${name}]]';
+		let b = '[[${vo}]]';
+		
+		console.log(a);
+		console.log(JSON.parse(b));
+	</script>
+	
+	<hr>
+	
+	<h3>타임리프 유틸리티 문법 - 자바 내장 객체</h3>
+	[[${ #numbers.formatInteger(vo.age, 5) }]]
+	<br>
+	문자열 길이: [[${ #strings.length(vo.address) }]]
+	
+	<br>
+	[[${time}]]
+	<br>
+	Date객체
+	[[${#dates.format(time, 'yyyy-MM-dd HH:mm:ss') }]]
+	<br>
+	[[${datetime}]] 
+	<br>
+	타임스탬프 or 로컬데이트 타입
+	[[${ #temporals.format(datetime, 'yyyy-MM-dd HH:mm:ss') }]]
+	
+	
+	
+	
+	
+
+</body>
+</html>

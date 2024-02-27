@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"><!-- 타임리프 선언 -->
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h3>타임리프 변수, 제어문</h3>
+	<b th:text="홍길동"></b> <!-- 홍길동 -->
+	<b th:text="${'홍길동'}"></b> <!-- 홍길동 -->
+	<b>[[${'홍길동'}]]</b>
+	
+	<hr>
+	
+	<h3 th:text="${1 == 1}"></h3> <!-- true -->
+	<h3>[[${1 == 1}]]</h3> <!-- true -->
+	
+	<h3 th:text="${true} and ${false}"></h3> <!-- false -->
+	<h3 th:text="${true && false}"></h3> <!-- false -->
+	<h3>[[${true && false}]]</h3> <!-- false -->
+	
+	<hr>
+	<h3>변수</h3>
+	<div th:with="a = 1, b = 2">
+		[[${a}]] <!-- 1 출력됨 -->
+		[[${b}]] <!-- 2 출력됨 -->
+	</div>
+	
+	<hr>
+	<h3>if문</h3>
+	
+	<div th:with="a = 5">
+		<span th:if="${a == 5}">[[${a} + '입니다']]</span> <!-- 5입니다 -->
+		<span th:if="${a == 6}">바보</span> <!-- 출력 x -->
+	</div>
+	
+	<hr>
+	
+	<h3>if~else문(unless는 동일한 조건을 넣는다)</h3>
+	
+	<div th:with="a = 6">
+		<span th:if="${a == 5}">[[${a} + '입니다']]</span> <!-- 출력 x -->
+		<span th:unless="${a == 5}">바보</span> <!-- 바보 출력됨 -->
+	</div>
+	
+	<h3>3항 연산식</h3>
+	<p th:with="a = '홍길동' ">
+		[[${a == '홍길동' ? '홍길동입니다' : '홍길동이 아닙니다' }]] <!-- 홍길동입니다 출력 -->
+	</p>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+</body>
+</html>
