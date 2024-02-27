@@ -15,3 +15,4 @@ public class SimpleVO {
 	private String email;
 	private String address;
 }
+

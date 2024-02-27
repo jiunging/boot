@@ -18,7 +18,6 @@ import com.simple.basic.command.ValidVO;
 @Controller
 @RequestMapping("/valid")
 public class ValidController {
-	
 	@GetMapping("/ex01")
 	public String ex01() {
 		return "valid/ex01";
@@ -71,20 +70,15 @@ public class ValidController {
 				model.addAttribute("valid_" + field, message);
 			}
 			model.addAttribute("vo", vo);
-
 			return "valid/quiz01";
 		}
 		
 		return "valid/quiz01_result";
 	}
 	
-
-	
 	@GetMapping("quiz01_result")
 	public String quiz01_result() {
 		return "valid/quiz01_result";
 	}
 	
-	
-
 }
