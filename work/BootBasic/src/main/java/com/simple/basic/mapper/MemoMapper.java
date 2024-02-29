@@ -10,5 +10,4 @@ import com.simple.basic.command.MemoVO;
 public interface MemoMapper {
 	public int insertMemo(MemoVO vo);
 	public ArrayList<MemoVO> selectMemo();
-	
 }

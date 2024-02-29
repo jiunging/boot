@@ -28,12 +28,8 @@ public class MemoController {
 	@PostMapping("/memoForm")
 	public String memoForm(MemoVO vo) {
 		
-		MemoVO vo1 = new MemoVO(vo.getMno(), vo.getMemo(), vo.getPhone(), vo.getPw(), vo.getSecret());
-		System.out.println("엄");
-		System.out.println("여기까지는?");
-		memoCode01.insertMemo(vo1);
+		memoCode01.insertMemo(vo);
 		
-		System.out.println("일단 여기까지 도달");
 		
 		return "redirect:/memo/memoList";
 	}
