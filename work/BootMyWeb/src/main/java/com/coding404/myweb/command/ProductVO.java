@@ -24,5 +24,16 @@ public class ProductVO {
 	private String prod_purchase_yn;
 	private String prod_content;
 	private String prod_comment;
-
+	@Override
+	public String toString() {
+		return "ProductVO [prod_id=" + prod_id + ", prod_regdate=" + prod_regdate + ", prod_enddate=" + prod_enddate
+				+ ", prod_category=" + prod_category + ", prod_writer=" + prod_writer + ", prod_name=" + prod_name
+				+ ", prod_price=" + prod_price + ", prod_count=" + prod_count + ", prod_discount=" + prod_discount
+				+ ", prod_purchase_yn=" + prod_purchase_yn + ", prod_content=" + prod_content + ", prod_comment="
+				+ prod_comment + "]";
+	}
+	
+	
 }
+
+

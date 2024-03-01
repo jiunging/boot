@@ -54,6 +54,10 @@ public class ProductController {
 	@PostMapping("/productForm")
 	public String productForm(ProductVO vo, RedirectAttributes ra) {
 		
+		System.out.println("시팟");
+		System.out.println(vo);
+		System.out.println(vo.toString());
+		
 		int result = productService.regist(vo);
 			
 		if(result == 1) { // 성공
@@ -69,6 +73,7 @@ public class ProductController {
 	// 업데이트요청
 	@PostMapping("/updateForm")
 	public String updateForm(ProductVO vo, RedirectAttributes ra) {
+
 		// 1. 화면에서 넘어오는 값을 받는다.
 		// 2. 서비스에 update메서드를 생성
 		// 3. enddate, prod_name, price, count, discount, 설명, 내용 내용을 업데이트
@@ -86,7 +91,6 @@ public class ProductController {
 	// 삭제요청
 	@PostMapping("/deleteForm")
 	public String deleteForm(@RequestParam("prod_id") int prod_id) {
-		
 		productService.delete(prod_id);
 		
 		return "redirect:/product/productList";
