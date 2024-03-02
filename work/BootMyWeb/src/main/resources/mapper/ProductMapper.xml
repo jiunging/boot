@@ -52,5 +52,4 @@
 		delete from PRODUCT where prod_id = #{prod_id}
 	</delete>
   	
-  	
   </mapper>

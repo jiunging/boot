@@ -95,5 +95,7 @@ public class ProductController {
 		
 		return "redirect:/product/productList";
 	}
+	
+
 
 }

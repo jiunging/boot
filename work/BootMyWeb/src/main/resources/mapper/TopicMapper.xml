@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.coding404.myweb.topic.service.TopicMapper">
+  
+  	<insert id="regist">
+	  	insert into TOPIC(topic_enddate,
+	  					  topic_id,
+	  					  topic_title,
+	  					  topic_comment)
+	  					  
+	  	values( #{topic_enddate}
+	  		   ,#{topic_id}
+	  		   ,#{topic_title}
+	  		   ,#{topic_comment} )
+  	</insert>
+  					  
+  </mapper>

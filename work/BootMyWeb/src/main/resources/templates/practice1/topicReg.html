@@ -85,7 +85,7 @@
 					</div>
                     <div class="page_title">게시글 연습 > 글 등록</div>
 
-                    <form name="#####" action="#####" method="post">
+                    <form name="topicForm" action="topicForm" method="post">
                         <div class="full_collum collum">
                             <ul>
                                 <li class="collum_tit">
@@ -99,25 +99,25 @@
                                                 <tr>
                                                     <th>등록일</th>
                                                     <td colspan="5">
-                                                        <input type="text" class="datepicker" name="####" readonly placeholder="날짜선택">
+                                                        <input type="text" class="datepicker" name="topic_enddate" readonly placeholder="날짜선택"  required pattern="\d{4}-\d{2}-\d{2}">
                                                     </td>
                                                 </tr>
 
 
                                                 <tr>
                                                     <th>아이디</th>
-                                                    <td><input type="text" class="inputw150" name="####" value="admin" readonly></td>
+                                                    <td><input type="text" class="inputw150" name="topic_id" value="admin" readonly></td>
                                                 </tr>
 
                                                 <tr>
                                                     <th>제목</th>
-                                                    <td colspan="5"><input type="text" class="inputw99p" name="####"></td>
+                                                    <td colspan="5"><input type="text" class="inputw99p" name="topic_title"></td>
                                                 </tr>
                                                 
                                                 <tr>
                                                     <th>내용</th>
                                                     <td colspan="5">
-                                                        <div><textarea  class="inputw99p" name="prod_content" style="height: 200px;"></textarea>
+                                                        <div><textarea  class="inputw99p" name="topic_comment" style="height: 200px;"></textarea>
                                                         </div>
                                                     </td>
                                                 </tr>
