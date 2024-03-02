@@ -99,12 +99,12 @@
 						<div class="fl">
 							<div>
 								<span class="search_th">제목 검색</span>
-								<input type="text" class="" placeholder="제목 검색">
+								<input type="text" class="" placeholder="제목 검색"  id="title_search">
 							</div>
 
 							<div>
 								<span class="search_th">닉네임 검색</span>
-								<input type="text" class="" placeholder="닉네임 검색">
+								<input type="text" class="" placeholder="닉네임 검색" id="name_search">
 							</div>
 
 							<!-- 
@@ -118,7 +118,7 @@
 
 						<div class="fr">
 							<div class="search_btn_area">
-								<a href="#" class="normal_btn purplebtn">검색</a>
+								<a href="#" class="normal_btn purplebtn" id="searchBtn">검색</a>
 								<a href="#" class="normal_btn purplebtn02">등록</a>
 							</div>
 						</div>
@@ -147,25 +147,16 @@
 												<th>등록일</th>
 											</tr>
 												
-											<tr>
-												<td>1</td>
-												<td>admin</td>
-												<td>오늘은 해가뜨려나?</td>
+											<tr th:each="vo, status : ${list}">
+												<td>[[${vo.topic_num}]]</td>
+												<td>[[${vo.topic_id}]]</td>
+												<td>[[${vo.topic_title}]]</td>
 												<td>
-													<a title="상세보기(클릭)" href="#">오늘은 비가오려나?</a>
+													<a title="상세보기(클릭)" th:href="@{topicDetail(topic_num=${vo.topic_num})}">[[${vo.topic_comment}]]</a>
 												</td>
-												<td>2016-01-01</td>
+												<td>[[${vo.topic_enddate.substring(0, 10)}]]</td>
 											</tr>
 
-                                            <tr>
-												<td>1</td>
-												<td>coding404</td>
-												<td>안녕하세요!</td>
-												<td>
-													<a title="상세보기(클릭)" href="#">오늘은 해가뜬데요.</a>
-												</td>
-												<td>2016-01-01</td>
-											</tr>
 										</table>
 
 
@@ -312,5 +303,18 @@
 
 
 </body>
+
+	<script>
+		var title_search = document.getElementById("title_search");
+		var name_search = document.getElementById("name_search");
+		var searchBtn = document.getElementById("searchBtn");
+		
+		searchBtn.onclick = function() {
+			console.log(title_search.value);
+			console.log(name_search.value == undefined);
+  			location.href = "/practice1/topicListTitleSearch?title=" + encodeURIComponent(title_search.value) + "&id=" + encodeURIComponent(name_search.value);
+		}
+	</script>
+
 
 </html>

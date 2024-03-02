@@ -106,7 +106,7 @@
 
                                                 <tr>
                                                     <th>아이디</th>
-                                                    <td><input type="text" class="inputw150" name="topic_id" value="admin" readonly></td>
+                                                    <td><input type="text" class="inputw150" name="topic_id" value=""></td>
                                                 </tr>
 
                                                 <tr>
@@ -124,7 +124,7 @@
 
                                             </table>
                                             <div class="btn_area">
-                                                <input type="submit" class="save" value="등록">
+                                                <input type="submit" class="save" value="등록" id=regBtn>
                                             	<input type="button" class="delete" value="목록">
                                                 <!-- 
                                                 <a href="#" class="save">등록</a>
@@ -200,6 +200,24 @@
             </div>
         </div>
     </footer>
+    
+    <script>
+    	var regBtn = document.getElementById("regBtn");
+    	regBtn.onclick = function() {
+    		var result = confirm("등록하시겠습니까?")
+    		event.preventDefault(); // 기본이벤트 막음
+    		
+    		if(result) {
+    			alert("등록 성공!")
+    			document.topicForm.submit();
+    			
+    		} else {
+    			alert("등록이 취소되었습니다");
+    			
+    		}
+    	}
+    
+    </script>
         
 
 </body>

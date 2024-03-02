@@ -97,22 +97,22 @@
                                                 <tr>
                                                     <th>등록일</th>
                                                     <td>
-                                                        <span>2016-01-01</span>
+                                                        <span>[[${vo.topic_enddate.substring(0, 10)}]]</span>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th>아이디</th>
-                                                    <td>admin</td>
+                                                    <td>[[${vo.topic_id}]]</td>
                                                 </tr>
 
                                                 <tr>
                                                     <th>제목</th>
-                                                    <td colspan="5">오늘은 해가뜨려나?</td>
+                                                    <td colspan="5">[[${vo.topic_title}]]</td>
                                                 </tr>
                                                 <tr>
                                                     <th>내용</th>
                                                     <td colspan="5">
-                                                        <div style="min-height: 300px;">오늘은 비가오려나?
+                                                        <div style="min-height: 300px;">[[${vo.topic_comment}]]
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -120,8 +120,8 @@
 
                                             </table>
                                             <div class="btn_area">
-                                                <input type="button" class="save" value="등록하러가기">
-                                            	<input type="button" class="delete" value="전체목록으로">
+                                                <input type="button" class="save" value="등록하러가기" onclick="reg()">
+                                            	<input type="button" class="delete" value="전체목록으로" onclick="list()">
                                                
                                             </div>
                                         </li>
@@ -187,5 +187,16 @@
     </footer>
 
 </body>
+
+
+<script>
+function reg() {
+    window.location.href = "./topicReg";
+}
+
+function list() {
+    window.location.href = "./topicListAll";
+}
+</script>
 
 </html>

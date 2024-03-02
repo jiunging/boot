@@ -16,5 +16,20 @@
 	  		   ,#{topic_title}
 	  		   ,#{topic_comment} )
   	</insert>
-  					  
+  	
+  	<select id="getList" resultType="TopicVO">
+  		select * from topic
+  	</select>
+  	
+  	<select id="searchTitle" resultType="TopicVO">
+  		select * from topic where topic_title like '%${topic_title}%'
+  	</select>
+  	
+  	<select id="searchId" resultType="TopicVO">
+  		select * from topic where topic_id like '%${topic_id}%'
+  	</select>
+  	
+  	<select id="getDetail" resultType="TopicVO">
+  		select * from topic where topic_num = #{topic_num}
+  	</select>
   </mapper>
