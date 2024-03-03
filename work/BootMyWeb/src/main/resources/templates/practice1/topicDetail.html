@@ -120,8 +120,8 @@
 
                                             </table>
                                             <div class="btn_area">
-                                                <input type="button" class="save" value="등록하러가기" onclick="reg()">
-                                            	<input type="button" class="delete" value="전체목록으로" onclick="list()">
+                                                <input type="button" class="save" value="등록하러가기" id="goRegist">
+                                            	<input type="button" class="delete" value="전체목록으로" id="goList">
                                                
                                             </div>
                                         </li>
@@ -190,13 +190,19 @@
 
 
 <script>
-function reg() {
-    window.location.href = "./topicReg";
-}
 
-function list() {
-    window.location.href = "./topicListAll";
-}
+	var goList = document.getElementById("goList");
+	var goRegist = document.getElementById("goRegist");
+	
+	
+	goList.onclick = function() {
+        window.location.href = "./topicListAll";
+	}
+	
+	goRegist.onclick = function() {
+        window.location.href = "./topicReg";
+	}
+	
 </script>
 
 </html>

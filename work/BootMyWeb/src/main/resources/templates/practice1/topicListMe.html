@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<title>연습용</title>
@@ -116,35 +116,22 @@
 												<th>수정/삭제</th>
 											</tr>
 												
-											<tr>
-												<td>1</td>
-												<td>admin</td>
-												<td>오늘은 해가뜨려나?</td>
+											<tr th:each="vo, status : ${list}">
+												<td th:text="${status.index + 1}"></td>
+												<td>[[${vo.topic_id}]]</td>
+												<td>[[${vo.topic_title}]]</td>
 												<td>
-													오늘은 비가오려나?
+													[[${vo.topic_comment}]]
 												</td>
-												<td>2016-01-01</td>
+												<td>[[${vo.topic_enddate.substring(0, 10)}]]</td>
 												<td>
-                                                    <a href="#">수정</a>
+                                                    <a th:href="@{topicModify(myTopic_num=${vo.topic_num})}">수정</a>
                                                     /
-                                                    <a href="#">삭제</a>
+                                                    <a th:href="@{topicModify(myTopic_num=${vo.topic_num})}">삭제</a>
                                                 </td>
 											</tr>
 
 											<tr>
-												<td>1</td>
-												<td>admin</td>
-												<td>세상에서 가장 가난한 임금은?</td>
-												<td>
-													최저임금
-												</td>
-												<td>2016-01-01</td>
-                                                <td>
-                                                    <a href="#">수정</a>
-                                                    /
-                                                    <a href="#">삭제</a>
-                                                </td>
-											</tr>
 
 										</table>
 

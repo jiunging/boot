@@ -86,7 +86,9 @@
                     <div class="page_title">게시글 연습 > 글 등록</div>
 
                     <form name="topicForm" action="topicForm" method="post">
+
                         <div class="full_collum collum">
+                        
                             <ul>
                                 <li class="collum_tit">
                                     <h2>게시글관리</h2>
@@ -106,26 +108,28 @@
 
                                                 <tr>
                                                     <th>아이디</th>
-                                                    <td><input type="text" class="inputw150" name="topic_id" value=""></td>
+                                                    <td><input type="text" class="inputw150" name="topic_id"  required></td>
                                                 </tr>
 
                                                 <tr>
                                                     <th>제목</th>
-                                                    <td colspan="5"><input type="text" class="inputw99p" name="topic_title"></td>
+                                                    <td colspan="5"><input type="text" class="inputw99p" name="topic_title" required></td>
                                                 </tr>
                                                 
                                                 <tr>
                                                     <th>내용</th>
                                                     <td colspan="5">
-                                                        <div><textarea  class="inputw99p" name="topic_comment" style="height: 200px;"></textarea>
+                                                        <div><textarea  class="inputw99p" name="topic_comment" style="height: 200px;" required></textarea>
                                                         </div>
                                                     </td>
                                                 </tr>
+                                                
+
 
                                             </table>
                                             <div class="btn_area">
-                                                <input type="submit" class="save" value="등록" id=regBtn>
-                                            	<input type="button" class="delete" value="목록">
+                                                <input type="submit" class="save" value="등록" id="regBtn">
+                                            	<input type="button" class="delete" value="목록" id="goList">
                                                 <!-- 
                                                 <a href="#" class="save">등록</a>
                                                 <a href="#" class="delete">목록</a>
@@ -203,6 +207,8 @@
     
     <script>
     	var regBtn = document.getElementById("regBtn");
+    	var goList = document.getElementById("goList");
+    	
     	regBtn.onclick = function() {
     		var result = confirm("등록하시겠습니까?")
     		event.preventDefault(); // 기본이벤트 막음
@@ -215,6 +221,10 @@
     			alert("등록이 취소되었습니다");
     			
     		}
+    	}
+    	
+    	goList.onclick = function() {
+    		window.location.href = "topicListAll";
     	}
     
     </script>

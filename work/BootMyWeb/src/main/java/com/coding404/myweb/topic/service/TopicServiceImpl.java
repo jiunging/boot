@@ -42,5 +42,23 @@ public class TopicServiceImpl implements TopicService{
 		
 		return topicMapper.getDetail(id);
 	}
+
+	@Override
+	public ArrayList<TopicVO> getMyList() {
+		
+		return topicMapper.getMyList();
+	}
+
+	@Override
+	public int update(TopicVO vo) {
+		
+		return topicMapper.update(vo);
+	}
+
+	@Override
+	public int delete(int topic_num) {
+		
+		return topicMapper.delete(topic_num);
+	}
 	
 }

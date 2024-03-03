@@ -18,18 +18,39 @@
   	</insert>
   	
   	<select id="getList" resultType="TopicVO">
-  		select * from topic
+  		select * from TOPIC
   	</select>
   	
+  	<!-- 제목 검색 -->
   	<select id="searchTitle" resultType="TopicVO">
-  		select * from topic where topic_title like '%${topic_title}%'
+  		select * from TOPIC where topic_title like '%${topic_title}%'
   	</select>
   	
+  	<!-- id 검색 -->
   	<select id="searchId" resultType="TopicVO">
-  		select * from topic where topic_id like '%${topic_id}%'
+  		select * from TOPIC where topic_id like '%${topic_id}%'
   	</select>
   	
+  	<!-- 세부내용 -->
   	<select id="getDetail" resultType="TopicVO">
-  		select * from topic where topic_num = #{topic_num}
+  		select * from TOPIC where topic_num = #{topic_num}
   	</select>
+  	
+  	<!-- 내 글 -->
+  	<select id="getMyList" resultType="TopicVO">
+  		select * from TOPIC where topic_id = 'admin';
+  	</select>
+  	
+  	<update id="update">
+  		update TOPIC set
+  		topic_id = #{topic_id},
+  		topic_title = #{topic_title},
+  		topic_comment = #{topic_comment} where topic_num = #{topic_num}
+  	</update>
+  	
+  	<delete id="delete">
+  		delete from TOPIC where topic_num = #{topic_num}
+  	</delete>
+  	
+  	
   </mapper>
