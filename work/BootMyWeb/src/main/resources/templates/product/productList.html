@@ -9,7 +9,7 @@
 			<!-- left_menu end -->
 			<div class="right_content">
 				<div class="midiaq">
-					<div class="page_title">관리자검색</div>		
+					<div class="page_title">관리자검색</div>
 					<!-- 
 						1. creteria에 검색 키워드 추가
 						2. select쿼리, total쿼리 동적쿼리 변경
@@ -23,7 +23,7 @@
 					<form name="productList" action="productList" method="get" >
 
 					<input type="hidden" name="page" value="1">
-					<input type="hidden" name="amount" th:value="${pageVO.amount}">
+					<input type="hidden" name="amount" th:value="${pageVO.amount}" id="amount">
 					
 					<div class="search_block flfull">
 
@@ -76,12 +76,14 @@
 							<li class="collum_tit">
 								<h2>상품 관리</h2>
 
-								<select class="">
+								<select class="" id="seeOption">
+<!-- 									<option value="0">엄</option> -->
 									<option value="10">10개 보기</option>
 									<option value="20">20개 보기</option>
 									<option value="40">40개 보기</option>
 									<option value="80">80개 보기</option>
 								</select>
+								
 								<span class="showtoggle minus"></span>
 								<ul>
 									<li>
@@ -319,6 +321,23 @@
 		
 		// amount 이벤트를 이용해서 데이터를 바꾸게 되면
 		// select 태그의 value를 얻어서 productList의 hidden의 ammount를 변경하고, 폼을 submit
+		var seeOption = document.getElementById("seeOption");
+		var amount = document.getElementById("amount");
+		console.log(seeOption.value);
+		
+		amount.value = '10';
+		
+		seeOption.onchange = function() {
+			document.productList.page.value = 1;
+				amount.value = seeOption.value;
+				document.productList.submit();
+			}
+
+		
+		
+		
+		
+		
 		
 	
 	</script>

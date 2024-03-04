@@ -86,7 +86,7 @@
   		select count(*) as total
   		from PRODUCT
   		where prod_writer = 'abc1234'
-  		  		<if test="searchName != '' and searchName != null">
+  		 <if test="searchName != '' and searchName != null">
   			and prod_name like concat('%', #{searchName}, '%')
   		</if>
   		<!-- 상품내용 검색 -->
