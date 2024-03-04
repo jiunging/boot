@@ -205,8 +205,6 @@
 		
 		var urlParams = new URLSearchParams(url);
 		var topic_num_value = urlParams.get("myTopic_num")
-		
-
 
 		function getURL() {
 			return topic_num_value !== null ? topic_num_value : 0;
@@ -216,8 +214,6 @@
 			topic_num.value = getURL();
 		}
 				
-
-
 		// 삭제
 		var deleteBtn = document.getElementById("deleteBtn");
 		

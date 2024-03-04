@@ -23,12 +23,7 @@
   				,#{prod_content}
   				,#{prod_comment} )
   	</insert>
-  	
-  	<select id="getList" resultType="ProductVO">
-  		select * from PRODUCT 
-  		where prod_writer = 'abc1234'
-  		order by prod_id desc
-  	</select>
+
   	
   	<select id="getDetail" resultType="ProductVO">
   		select *
@@ -51,5 +46,63 @@
 	<delete id="delete">
 		delete from PRODUCT where prod_id = #{prod_id}
 	</delete>
+	
+	
+	<!--  
+	동적쿼리 test조건은 VO안에 선언된 getter명을 변수로 사용가능
+	CDATA안에 들어간 값은 순수한 문자열로 인식을 시킴(부등호를 사용할 때 적용)
+	-->
+  	<select id="getList" resultType="ProductVO">
+  		select * from PRODUCT 
+  		where prod_writer = 'abc1234'
+  		<!-- 상품이름 검색 -->
+  		<if test="searchName != '' and searchName != null">
+  			and prod_name like concat('%', #{searchName}, '%')
+  		</if>
+  		<!-- 상품내용 검색 -->
+  		<if test="searchContent != '' and searchContent != null">
+  			and prod_name like concat('%', #{searchContent}, '%')
+  		</if>
+  		<!-- 날짜 검색 -->
+  		<if test="startDate != '' and startDate != null">
+  			<![CDATA[and str_to_date(prod_enddate, '%Y-%m-%d') >= str_to_date(#{startDate}, '%Y-%m-%d')]]>
+			
+  		</if>
+   		<if test="endDate != '' and endDate != null">
+   			<![CDATA[and str_to_date(prod_enddate, '%Y-%m-%d') <= str_to_date(#{endDate}, '%Y-%m-%d')]]>
+  		</if>
+  		order by
+  		<if test="searchPrice == 'asc'">
+  			prod_price asc,
+  		</if>
+  		<if test="searchPrice == 'desc'">
+  		  	prod_price desc,
+  		</if>
+		prod_id desc
+  		limit #{pageStart}, #{amount}
+  	</select>
+  	
+  	<select id="getTotal" resultType="int">
+  		select count(*) as total
+  		from PRODUCT
+  		where prod_writer = 'abc1234'
+  		  		<if test="searchName != '' and searchName != null">
+  			and prod_name like concat('%', #{searchName}, '%')
+  		</if>
+  		<!-- 상품내용 검색 -->
+  		<if test="searchContent != '' and searchContent != null">
+  			and prod_name like concat('%', #{searchContent}, '%')
+  		</if>
+  		<!-- 날짜 검색 -->
+  		<if test="startDate != '' and startDate != null">
+  			<![CDATA[and str_to_date(prod_enddate, '%Y-%m-%d') >= str_to_date(#{startDate}, '%Y-%m-%d')]]>
+			
+  		</if>
+   		<if test="endDate != '' and endDate != null">
+   			<![CDATA[and str_to_date(prod_enddate, '%Y-%m-%d') <= str_to_date(#{endDate}, '%Y-%m-%d')]]>
+  		</if>
+  	</select>
+	
+	
   	
   </mapper>
