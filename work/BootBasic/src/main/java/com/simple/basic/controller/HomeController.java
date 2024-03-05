@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 	
 	@GetMapping("/")
+	//@ResponseBody // 일반 컨트롤러에서 REST방식을 사용하려면
 	public String home(Model model) {
 		
 		model.addAttribute("serverTime", new Date());

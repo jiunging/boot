@@ -10,6 +10,71 @@
 	[[${serverTime}]] <br>
 	[[${model}]]
 	
+	<script>
+		(async function() {
+/* 			let a = await fetch("/aaa").then((response) => response.text() ) 
+			console.log(a)
+			
+			let b = await fetch("/getJSON", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json", // 보내는 타입 명시
+					},
+					body: JSON.stringify( {"id": "홍길동", "age" : 20} ),
+			}).
+			then( (response) => response.text() )
+			
+			console.log(b) */
+			
+			let a = await fetch("/api/v1/getData?num=1&name=홍길동")
+			.then(response => response.json())
+			console.log(a)
+			
+			let b = await fetch("/api/v1/getInfo", {
+				method: "post",
+				headers : {
+					"Content-Type" : "application/json",
+					
+				},
+				body : JSON.stringify( {"name" : "클라이언트 사용자가 입력한 값", "num" : 20})
+			})
+			console.log(b);
+			console.log(await b.json());
+			
+			
+		      })();
+		
+/* 	      (async() => {
+	          let c = await fetch("http://localhost:8181/api/v1/getData?num=4&name=엄준식", {
+	          method: "GET",
+	          headers: {
+	            "Content-Type": "application/json",
+	          },
+	          }).
+	          then( (response) => response.json() )
+	          console.log(c);
+	          
+	      })();
+	      
+	      (async() => {
+	          let d = await fetch("http://localhost:8181/api/v1/getInfo", {
+	          method: "POST",
+	          headers: {
+	            "Content-Type": "application/json",
+	          },
+	          body: JSON.stringify( {"num" : 25, "name" : "엄홍식"})
+	          }).
+	          then( (response) => response.json() )
+	          console.log(d);
+	          
+	      })(); */
+	      
+	      
+	      
+	      
+		
+	
+	</script>
 
 </body>
 </html>
