@@ -66,7 +66,7 @@ public class RestBasicController {
 //		System.out.println(id + ", " + age);
 //		return "success";
 //	}
-	
+	@CrossOrigin("*")
 	@GetMapping("/getData")
 	public String getData(SimpleVO vo) {
 		
