@@ -9,5 +9,47 @@
  	<select id="getTime" resultType="string">
  		select now()
  	</select>
+ 	
+ 	<!-- N:1 방식 -->
+ 	<select id="joinOne" resultType="com.simple.basic.command.MemoVO">
+ 		select * from memo m
+ 		left join users u
+ 		on m.writer = u.id
+ 	</select>
+ 	
+ 	<!-- 1:N 방식 -->
+ 	<select id="joinTwo" resultMap="xxx">
+ 		select * from users u
+ 		left join memo m
+ 		on u.id = m.writer
+ 	</select>
+ 	
+ 	<!-- 
+ 		1:N ORM작업을 직접 처리한다. 
+ 		
+ 		id=식별이름
+ 		type=조인결과처리할 VO	
+ 		property=멤버변수명
+ 		column=데이터베이스컬럼명
+ 	-->
+ 	<resultMap type="com.simple.basic.command.UsersVO" id="xxx">
+ 		<!-- usersVO안에 있는 id, name, email 뽑고, 
+ 		List memo도 뽑음(usersVO가보면 arraylist 선언한 거)
+ 		, arraylist선언한건, 이름 property로 가져오고, colletcion으로 감싸줌
+ 		
+ 		-->
+ 		<result property="id" column="id"/>
+ 		<result property="name" column="name"/>
+ 		<result property="email" column="email"/>
+ 		
+ 		<collection property="memo" ofType="com.simple.basic.command.MemoVO">
+ 			<result property="mno" column="mno"/>
+ 			<result property="writer" column="writer"/>
+ 			<result property="mno" column="mno"/>
+ 			
+ 		</collection> 		
+ 	</resultMap>
+
+ 	
   	
   </mapper>
