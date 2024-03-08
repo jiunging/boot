@@ -34,7 +34,7 @@
 
                                                         <td colspan="5">
                                                             <div>수정이 불가능한 옵션입니다(상품관리자에게 문의하세요)</div>
-                                                            대분류 > 중분류 > 소분류
+                                                            [[${vo.category_nav}]]
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -54,7 +54,21 @@
                                                             <div class="blockContent">
                                                                 <div class="productText">이미지 수정은 목록을 이용해주세요</div>
                                                                 <div class="productImg">
+                                                                
+                                                                    <th:block th:each="vo : ${imgs}">
                                                                     <div class="imgItem">
+                                                                        <span class="imgKind">대표이미지</span>
+                                                                        <div class="imgWrap">
+                                                                            <div class="imgArea">
+                                                                                <img th:src="@{'http://localhost:8282/display/' + ${vo.filepath + '/' + vo.uuid + '/' + vo.filename}}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    </th:block>
+                                                                
+                                                                
+                                                                
+                                                                    <!-- <div class="imgItem">
                                                                         <span class="imgKind">대표이미지</span>
                                                                         <div class="imgWrap">
                                                                             <div class="imgArea">
@@ -85,7 +99,8 @@
                                                                                 <img src="../img/item_banner.jpg">
                                                                             </div>
                                                                         </div>
-                                                                    </div>
+                                                                    </div> -->
+                                                                    
                                                                     
                                                                 </div>
                                                             </div>

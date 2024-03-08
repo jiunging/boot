@@ -109,7 +109,7 @@
 													<a href="#" class="normal_btn modalOn">이미지수정</a>													
 												</td>
 												<td>[[${vo.prod_id}]]</td>
-												<td>[[${vo.prod_category}]]</td>
+												<td>[[${vo.category_nav == null ? '없음' : vo.category_nav}]]</td>
 
 												<td>
 													<a title="상세보기(클릭)" th:href="@{productDetail(prod_id=${vo.prod_id}) }">

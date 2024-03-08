@@ -29,7 +29,20 @@
   	
   	<select id="getDetail" resultType="ProductVO">
   		select *
-  		from PRODUCT
+  		from PRODUCT P
+  				left join(SELECT
+		       CONCAT(A1.group_ID, A1.CATEGORY_ID) AS CATEGORY_KEY, ##카테고리 키 (그룹 + 키 형태로 카테고리분류)
+		 	   CASE A1.category_parent_LV
+		 	        WHEN 0 THEN A1.category_detail_NM
+		 			WHEN 1 THEN CONCAT(A2.category_detail_NM,' > ', A1.category_detail_NM)
+		 			WHEN 2 THEN CONCAT(A3.category_detail_NM, ' > ', A2.category_detail_NM,' > ', A1.category_detail_NM)
+		 	   END as CATEGORY_NAV
+			   FROM PRODUCT_CATEGORY A1
+			   LEFT OUTER JOIN PRODUCT_CATEGORY A2
+			   ON A1.CATEGORY_PARENT_LV = A2.CATEGORY_LV AND A1.CATEGORY_DETAIL_PARENT_LV = A2.CATEGORY_DETAIL_LV AND A1.GROUP_ID = A2.GROUP_ID
+			   LEFT OUTER JOIN PRODUCT_CATEGORY A3
+			   ON A2.CATEGORY_PARENT_LV = A3.CATEGORY_LV AND A2.CATEGORY_DETAIL_PARENT_LV = A3.CATEGORY_DETAIL_LV
+			   ORDER BY CATEGORY_NAV ASC) C on P.prod_category = C.category_key
   		where prod_id = #{prod_id}
   	</select>
   	
@@ -55,9 +68,49 @@
 	CDATA안에 들어간 값은 순수한 문자열로 인식을 시킴(부등호를 사용할 때 적용)
 	-->
   	<select id="getList" resultType="ProductVO">
-  		select * from PRODUCT 
+<!--   		select * from PRODUCT 
   		where prod_writer = 'abc1234'
-  		<!-- 상품이름 검색 -->
+  		상품이름 검색
+  		<if test="searchName != '' and searchName != null">
+  			and prod_name like concat('%', #{searchName}, '%')
+  		</if>
+  		상품내용 검색
+  		<if test="searchContent != '' and searchContent != null">
+  			and prod_name like concat('%', #{searchContent}, '%')
+  		</if>
+  		날짜 검색
+  		<if test="startDate != '' and startDate != null">
+  			<![CDATA[and str_to_date(prod_enddate, '%Y-%m-%d') >= str_to_date(#{startDate}, '%Y-%m-%d')]]>
+			
+  		</if>
+   		<if test="endDate != '' and endDate != null">
+   			<![CDATA[and str_to_date(prod_enddate, '%Y-%m-%d') <= str_to_date(#{endDate}, '%Y-%m-%d')]]>
+  		</if>
+  		order by
+  		<if test="searchPrice == 'asc'">
+  			prod_price asc,
+  		</if>
+  		<if test="searchPrice == 'desc'">
+  		  	prod_price desc,
+  		</if> -->
+  		
+  		select p.*,
+	   c.category_nav
+       from PRODUCT P
+		left join(SELECT
+		       CONCAT(A1.group_ID, A1.CATEGORY_ID) AS CATEGORY_KEY, ##카테고리 키 (그룹 + 키 형태로 카테고리분류)
+		 	   CASE A1.category_parent_LV
+		 	        WHEN 0 THEN A1.category_detail_NM
+		 			WHEN 1 THEN CONCAT(A2.category_detail_NM,' > ', A1.category_detail_NM)
+		 			WHEN 2 THEN CONCAT(A3.category_detail_NM, ' > ', A2.category_detail_NM,' > ', A1.category_detail_NM)
+		 	   END as CATEGORY_NAV
+		FROM PRODUCT_CATEGORY A1
+		LEFT OUTER JOIN PRODUCT_CATEGORY A2
+		ON A1.CATEGORY_PARENT_LV = A2.CATEGORY_LV AND A1.CATEGORY_DETAIL_PARENT_LV = A2.CATEGORY_DETAIL_LV AND A1.GROUP_ID = A2.GROUP_ID
+		LEFT OUTER JOIN PRODUCT_CATEGORY A3
+		ON A2.CATEGORY_PARENT_LV = A3.CATEGORY_LV AND A2.CATEGORY_DETAIL_PARENT_LV = A3.CATEGORY_DETAIL_LV
+		ORDER BY CATEGORY_NAV ASC) C on P.prod_category = C.category_key
+  		where prod_writer = 'abc1234'
   		<if test="searchName != '' and searchName != null">
   			and prod_name like concat('%', #{searchName}, '%')
   		</if>
@@ -117,6 +170,51 @@
 		where group_id = #{group_id}
 		and category_parent_lv = #{category_lv}
 		and category_detail_parent_lv = #{category_detail_lv}
+	</select>
+	
+	<!--  
+	 1. insert 전에 product테이블의 키값이 FK로 사용되기 때문에 반드시 필요함
+	 selectKey를 사용하면 된다.
+	 2. update or delete에도 전부 사용할 수 있음
+	 3. 단, 조회된 결과가 1행이어야 함
+	 
+	그니까, insert를 하는데, 값 중에 하나가 fk라서 fk값을 가져와야함, 그런 경우에 쓰는거임
+	resultType = 조회한 결과를 반환받을 타입
+	KeyProperty = 조회한 값을 저장할 속성명
+	order는 BEFORE, AFTER가 사용 가능한데, SQL문 전, 후 적용순서
+	-->
+	
+	<!-- 파일 업로드 -->
+	<insert id="registFile">
+	
+		<selectKey resultType="int" keyProperty="prod_id" order="BEFORE">
+			select max(prod_id) from PRODUCT where prod_writer = #{prod_writer}
+		</selectKey>
+		
+		<!-- 그니까, 아래 insert문 보면, product에 있는 prod_id를 구해야 하는데,
+			지금 insert문은 product_upload임,
+			근데 product 속 prod_id를 미리 구해서, 아래 sql문에다가 집어넣겠다 이것임
+		 -->
+	
+		insert into PRODUCT_UPLOAD(
+			filename,
+			filepath,
+			uuid,
+			prod_id,
+			prod_writer
+		)
+		values(
+			#{filename},
+			#{filepath},
+			#{uuid},
+			#{prod_id},
+			#{prod_writer}
+		)
+	</insert>
+	
+	<!-- 상품 이미지들 조회 -->
+	<select id="getImgs" resultType="ProductUploadVO">
+		select * from PRODUCT_UPLOAD where prod_id = #{prod_id}
 	</select>
 	
   	

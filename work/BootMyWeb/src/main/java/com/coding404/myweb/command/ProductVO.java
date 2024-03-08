@@ -24,6 +24,9 @@ public class ProductVO {
 	private String prod_purchase_yn;
 	private String prod_content;
 	private String prod_comment;
+	
+	private String category_nav; // 조인된 결과를 담을 컬럼
+	
 	@Override
 	public String toString() {
 		return "ProductVO [prod_id=" + prod_id + ", prod_regdate=" + prod_regdate + ", prod_enddate=" + prod_enddate

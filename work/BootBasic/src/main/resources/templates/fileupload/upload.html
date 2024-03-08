@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h3>다양한 파일 업로드 예제</h3>
+	
+	<!-- 폼타입을 multipart 타입으로 꼭 선언한다. -->
+	<h3>단일 파일 업로드</h3>
+	<form action="upload_ok" method="post" enctype="multipart/form-data">
+		파일 선택: <input type="file" name="file">
+		<input type="submit" value="업로드하기">
+	</form>
+	
+	
+	<h3>multiple을 사용한 여러 파일 업로드</h3>
+	<form action="upload_ok2" method="post" enctype="multipart/form-data">
+		<input type="file" name="file" multiple="multiple">
+		<input type="submit" value="업로드하기">
+	</form>
+	
+	<h3>복수태그를 사용해서 여러 파일 업로드</h3>
+	<form action="upload_ok3" method="post" enctype="multipart/form-data">
+		<input type="file" name="file">
+		<input type="file" name="file">
+		<input type="file" name="file">
+		<input type="file" name="file">
+		<input type="submit" value="업로드하기">
+	</form>
+	
+	
+	
+	<h3>비동기적 업로드 처리</h3>
+	
+	 <!-- 제이쿼리 사용 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>>
+	<div>
+		<input type="text" name="writer">
+		<input type="file" name="file_a">
+	</div>
+	<button id="uploadBtn">비동기파일전송</button>
+	
+	<script>
+	
+		$("#uploadBtn").on("click", function() {
+			var writer = $("input[name=writer]").val() // input 중에 name이 writer인 것의 value
+			var file = $("input[name=file_a]") // value를 얻는게 아니라, file_a태그를 얻기
+			
+			console.log(writer)
+			console.log(file[0]) // input태그
+			console.log(file[0].files) // files 속성은, 파일에 대한 정보
+			console.log(file[0].files[0]) // 사용자가 올린 파일데이터
+			
+			// JS로 FORM방식으로 쓰는 방법
+			var form = new FormData();
+			form.append("writer", writer); // name="writer" value="값"
+			form.append("file", file[0].files[0]); // name="file" value="파일데이터"
+			
+			// ajax로 form 전송 (JSON x)
+			$.ajax({
+				type: "post",
+				url: "upload_ok4",
+				processData: false, // 자동으로 form 형식으로 나열되는데, 그것을 방지
+				contentType: false, // 타입이 multipart/form-data 타입이 된다
+				data: form, // 폼타입 데이터
+				success: function(data) {
+					console.log(data);
+				},
+				error: function(err, status) {
+					console.log(err, status)
+				}
+				
+				
+			})
+		})
+	
+
+	</script>
+	
+	
+	
+
+</body>
+</html>
