@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -30,11 +32,15 @@ public class ProductController {
 	private ProductService productService;
 	
 	@GetMapping("/productList")
-	public String list(Model model, Criteria cri) { // 매개변수가 없으면 기본값, 있으면 생성자를 통해서 매개변수 전달
+	public String list(Model model, Criteria cri, HttpSession session) { // 매개변수가 없으면 기본값, 있으면 생성자를 통해서 매개변수 전달
+		
+		String user_id = (String)session.getAttribute("user_id");
+		
+		
 		
 		// 목록을 가지고 나와서 데이터를 담고 나감
-		ArrayList<ProductVO> list = productService.getList(cri);
-		int total = productService.getTotal(cri);
+		ArrayList<ProductVO> list = productService.getList(cri, user_id);
+		int total = productService.getTotal(cri, user_id);
 		PageVO pageVO = new PageVO(cri, total); // 페이지네이션
 		
 		model.addAttribute("list", list);

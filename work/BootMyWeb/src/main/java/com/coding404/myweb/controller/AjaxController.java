@@ -76,6 +76,39 @@ public class AjaxController {
 		return entity;
 	}
 	
+	// 다운로드
+	@GetMapping("/download/{filepath}/{uuid}/{filename}")
+	public ResponseEntity<byte[]> download(@PathVariable("filepath") String filepath,
+										  @PathVariable("uuid") String uuid,
+										  @PathVariable("filename") String filename) {
+		
+		ResponseEntity<byte[]> entity = null;
+		
+		try {
+			// 로컬에 있는 파일데이터 byte 정보
+			String savePath = uploadPath + "/" + filepath + "/" + uuid + "_" + filename;
+			File file = new File(savePath);
+			
+			// 데이터
+			byte[] arr = FileCopyUtils.copyToByteArray(file);
+			// 헤더정보
+			org.springframework.http.HttpHeaders header = new org.springframework.http.HttpHeaders();
+			
+			
+			// 다운로드는 다른점이, 이거 차이임
+			// Content-Disposition: attachment; filename="filename.jpg"
+			header.add("Content-Disposition", "attachment; filename=" + filename);
+			
+			entity = new ResponseEntity<>(arr, header, HttpStatus.OK);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return entity;
+	}
+	
 	
 
 }

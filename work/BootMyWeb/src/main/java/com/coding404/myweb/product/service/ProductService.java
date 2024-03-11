@@ -14,8 +14,8 @@ import com.coding404.myweb.util.Criteria;
 public interface ProductService {
 	
 	public int regist(ProductVO vo, List<MultipartFile> list); // insert 기능(vo, 파일데이터)
-	public ArrayList<ProductVO> getList(Criteria cri); // select 기능
-	public int getTotal(Criteria cri); // 전체게시글 수
+	public ArrayList<ProductVO> getList(Criteria cri, String user_id); // select 기능
+	public int getTotal(Criteria cri, String user_id); // 전체게시글 수
 	public ProductVO getDetail(int prod_id); // 상세보기페이지
 	public int update(ProductVO vo); // update기능
 	public void delete(int prod_id); // 삭제기능

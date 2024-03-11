@@ -57,9 +57,10 @@
                                                                 
                                                                     <th:block th:each="vo : ${imgs}">
                                                                     <div class="imgItem">
-                                                                        <span class="imgKind">대표이미지</span>
+                                                                        <span class="imgKind">대표이미지 <a th:href="@{'http://localhost:8282/download/' + ${vo.filepath + '/' + vo.uuid + '/' + vo.filename}}">다운로드</a></span>
                                                                         <div class="imgWrap">
                                                                             <div class="imgArea">
+                                                                            	<!-- img th:src="이미지 정보를 가져오는 controller 호출" -->
                                                                                 <img th:src="@{'http://localhost:8282/display/' + ${vo.filepath + '/' + vo.uuid + '/' + vo.filename}}">
                                                                             </div>
                                                                         </div>
