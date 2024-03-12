@@ -5,7 +5,18 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<!--  
+		username, password를 기본값으로 사용하고,
+		만약 변경하고 싶으면, 설정을 해야함(그냥 써 ㅋㅋ)
+	-->
+	
 	<h3>로그인 페이지</h3>
+	<form action="loginForm" method="post">
+		<input type="text" name="username">
+		<input type="password" name="password">
+		<input type="submit" value="로그인 시도">
+	</form>
+	[[${msg}]]
 
 </body>
 </html>
