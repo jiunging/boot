@@ -1,6 +1,7 @@
 package com.coding404.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -91,6 +92,13 @@ public class HomeController {
 		memberMapper.join(vo);
 		
 		return "redirect:/login"; // 가입 후에는 로그인화면으로
+	}
+	
+	// 메서드 방식으로 권한을 추가
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@GetMapping("/test")
+	public @ResponseBody String test() {
+		return "ADMIN권한이 있어야 접근이 가능한 페이지~";
 	}
 	
 	// 접근 권한 없음 핸들러

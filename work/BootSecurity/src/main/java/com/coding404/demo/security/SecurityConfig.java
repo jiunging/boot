@@ -1,16 +1,24 @@
 package com.coding404.demo.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration // 설정파일임
 @EnableWebSecurity // 이 설정파일을 시큐리티 필터에 등록시킴
+@EnableGlobalMethodSecurity(prePostEnabled = true) // 메서드에 권한설정 어노테이션 활성화
 public class SecurityConfig {
+	
+	// 로그인 시도 UserDetailService
+	@Autowired
+	private MyUserDetailsService myUserDetailsService;
 	
 	// 비밀번호 암호화 객체(시큐리티가 제공해줌)
 	@Bean
@@ -73,11 +81,26 @@ public class SecurityConfig {
 			.logout().logoutUrl("/myLogout").logoutSuccessUrl("/hello"); // 로그아웃 주소 /myLogout으로, 로그아웃 이후에는 /hello로
 		
 
-		
+		// 나를 기억해
+		http.rememberMe()
+			.key("jiunging") // rememberMe를 쿠키로 동작시키는데, 그때, 쿠키에 저장되는 토큰값을 만들 비밀 키
+			.tokenValiditySeconds(3600) // 1시간 동안 유효한 토큰
+			.rememberMeParameter("remember-me") // 화면에서 전달되는 checkbox의 파라미터 값
+			.userDetailsService(myUserDetailsService) // 리멤버미 토큰이 있을 때 실행시킬 메서드
+			.authenticationSuccessHandler(authenticationSuccessHandler());
+			
 		return http.build();
 		
 	}
 	
+	// 리멤버미 핸들러
+	@Bean
+	public AuthenticationSuccessHandler authenticationSuccessHandler() {
+		return new CustomRememberMeHandler();
+	}
+	
+	
+	// 인증실패 핸들러
 	@Bean
 	public AuthenticationFailureHandler authenticationFailureHandler() {
 		
